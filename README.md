@@ -15,3 +15,6 @@ This practical work in the context of the *420-KB9 Web Application Development I
 ### Authors
 
 - [@niickricci](https://www.github.com/niickricci)
+
+### LICENSE
+[MIT](https://choosealicense.com/licenses/mit/)
