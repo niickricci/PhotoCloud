@@ -68,8 +68,8 @@ foreach ($list as $User) {
     HTML;
     /******************************Remove*************************************/
     $UserCmdRemove = <<<HTML
-        <form method="POST">
-    <a class="cmdIconVisible goldenrodCmd fa fa-user-slash mx-2"></a>
+    <form method="POST">
+          <a href="confirmDeleteProfil.php?id=$id" class="cmdIconVisible goldenrodCmd fa fa-user-slash mx-2"></a>
     </form>
     HTML;
     /*************************************************************************/

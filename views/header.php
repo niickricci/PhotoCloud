@@ -19,7 +19,7 @@
                 <i class="menuIcon fa fa-sign-out mx-2"></i> Déconnexion
             </a>
             <a href="editProfilForm.php" class="dropdown-item">
-                <i class="menuIcon fa fa-user mx-2"></i> Modifier votre profil
+                <i class="menuIcon fa fa-user-pen mx-2"></i> Modifier votre profil
             </a>
             HTML;
             if(isset($_SESSION["isAdmin"])){
@@ -58,6 +58,9 @@
          </a>
          <a href="photosList.php?sort=owners" class="dropdown-item" id="photosListCmd">
                 <i class="menuIcon fa fa-users mx-2"></i>Trier les photos par créateur
+         </a>
+         <a href="photosList.php?sort=mine" class="dropdown-item" id="photosListCmd">
+                <i class="menuIcon fa fa-user mx-2"></i>Mes photos
          </a>
         HTML;
     }

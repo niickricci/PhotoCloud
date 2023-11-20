@@ -2,7 +2,7 @@
 include 'php/sessionManager.php';
 include "models/photos.php";
 include "models/users.php";
-$viewName="photoList";
+$viewName = "photoList";
 userAccess();
 $viewTitle = "Photos";
 $list = PhotosFile()->toArray();
@@ -19,15 +19,22 @@ switch ($sortOrder) {
         });
         break;
     case 'date':
-        usort($list, function ($photo_a, $photo_b)
-        {
-            $time_a = (int)$photo_a->CreationDate();
-            $time_b = (int)$photo_b->CreationDate();
-            if ($time_a == $time_b) return 0;
-            if ($time_a > $time_b) return -1;
+        usort($list, function ($photo_a, $photo_b) {
+            $time_a = (int) $photo_a->CreationDate();
+            $time_b = (int) $photo_b->CreationDate();
+            if ($time_a == $time_b)
+                return 0;
+            if ($time_a > $time_b)
+                return -1;
             return 1;
         });
-    }
+        break;
+    case 'mine':
+        $list = array_filter($list, function($item) {
+            return $item->OwnerId() == (int)$_SESSION["currentUserId"];
+        });
+        break;
+}
 foreach ($list as $photo) {
     $id = strval($photo->id());
     $title = $photo->Title();
@@ -40,7 +47,7 @@ foreach ($list as $photo) {
     $sharedIndicator = "";
     $editCmd = "";
     $visible = $shared;
-    if (($photo->OwnerId() == (int)$_SESSION["currentUserId"]) || isset($_SESSION["isAdmin"])) { //ADMIN
+    if (($photo->OwnerId() == (int) $_SESSION["currentUserId"]) || isset($_SESSION["isAdmin"])) { //ADMIN
         $visible = true;
         $editCmd = <<<HTML
             <a href="editPhotoForm.php?id=$id" class="cmdIconSmall fa fa-pencil" title="Editer $title"> </a>
@@ -50,10 +57,10 @@ foreach ($list as $photo) {
             $sharedIndicator = <<<HTML
                 <div class="UserAvatarSmall transparentBackground" style="background-image:url('images/shared.png')" title="partagée"></div>
             HTML;
-        } 
+        }
     }
     if ($visible) {
-    $photoHTML = <<<HTML
+        $photoHTML = <<<HTML
         <div class="photoLayout" photo_id="$id">
             <div class="photoTitleContainer" title="$description">
                 <div class="photoTitle ellipsis">$title</div> $editCmd</div>
