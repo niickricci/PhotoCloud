@@ -1,4 +1,4 @@
-
+![Logo](https://i.postimg.cc/0yYfKBv9/Photo-Cloud-Logo.png)
 # PhotoCloud
 
 This practical work in the context of the 420-KB9 Web Application Development I course at Collège Lionel-Groulx aims to develop and deploy a CRUD interface for server data, with a focus on security, connection duration, page formatting, and form data validation.
