@@ -2,6 +2,8 @@
 include 'php/sessionManager.php';
 include "models/photos.php";
 include "models/users.php";
+include "php/date.php";
+
     $viewTitle = "Details Photos";
     
     userAccess();
@@ -18,25 +20,34 @@ include "models/users.php";
     $creationDate = $photo->CreationDate();
     $shared = $photo->Shared() == "true";
     $visible = $shared;
+    $creationDate = dateFR($creationDate);
 
     if (($photo->OwnerId() == (int)$_SESSION["currentUserId"]) || isset($_SESSION["isAdmin"])) { //ADMIN
             $visible = true;
 
     }
-    if ($visible) {
-        $photoHTML = <<<HTML
+if ($visible) {
+    $photoHTML = <<<HTML
             <br>
-            <div>
-            <img class="UserAvatarSmall"src="$ownerAvatar" alt="">
-            <span class="UserName">$ownerName</span>
+            <div class="photoDetailsOwner">
+                <img class="UserAvatarSmall"src="$ownerAvatar" alt="">
+                <span class="UserName">$ownerName</span>
             </div>
-            <div class="photoDetailsTitle">$title</div>
-            <div class="photoDetailsDescription">$description</div>
-            <div class="photoImage"><img src="$image" alt=""></div>
-            <div class="photoDetailsCreationDate">Date de création: $creationDate</div>
+            <div class="photoDetailsTitle">
+                $title
+            </div>
+            <div class="photoDetailsLargeImage">
+                <img src="$image" alt="">
+            </div>
+            <div class="photoDetailsCreationDate">
+                $creationDate
+            </div>
+            <div class="photoDetailsDescription">
+                $description
+                </div>
             HTML;
-            $viewContent = $viewContent . $photoHTML;
-    }
+    $viewContent = $viewContent . $photoHTML;
+}
     else{
         redirect("illegalAction.php");
     }

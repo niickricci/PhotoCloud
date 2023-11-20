@@ -64,7 +64,8 @@
     color:dodgerblue;
     margin:5px;
 }
-.photoDetailsLargeImage {
+.photoDetailsLargeImage img{
+    border-radius: 10px;
     width:100%;
     object-fit: cover;
     padding: 5px;
