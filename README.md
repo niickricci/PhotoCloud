@@ -16,4 +16,3 @@ This practical work in the context of the *420-KB9 Web Application Development I
 
 - [@niickricci](https://www.github.com/niickricci)
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
