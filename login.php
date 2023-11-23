@@ -18,10 +18,10 @@ function EmailExist($email)
         $GLOBALS["userName"] = $user->Name();
         $GLOBALS["avatar"] = $user->Avatar();
         $GLOBALS["password"] = $user->Password();
-        if($user->type() == 1){
+        if ($user->type() == 1) {
             $_SESSION['isAdmin'] = true;
         }
-        if($user->isBlocked()){
+        if ($user->isBlocked()) {
             $_SESSION['isBlocked'] = true;
         }
         return true;
