@@ -10,24 +10,24 @@ $viewContent = "";
 
 //Admin
 if (isset($_POST['userId']) && isset($_POST['newType'])) {
-    $userId = (int)$_POST['userId'];
+    $userId = (int) $_POST['userId'];
     $newType = $_POST['newType'];
     $user = UsersFile()->get($userId);
     $user->setType($newType);
     UsersFile()->update($user);
 
-    header('Location: usersList.php'); 
+    header('Location: usersList.php');
     exit;
 }
 //Bloquer
 if (isset($_POST['userId']) && isset($_POST['newBlocked'])) {
-    $userId = (int)$_POST['userId'];
+    $userId = (int) $_POST['userId'];
     $newBlocked = $_POST['newBlocked'];
     $user = UsersFile()->get($userId);
     $user->setBlocked($newBlocked);
     UsersFile()->update($user);
 
-    header('Location: usersList.php'); 
+    header('Location: usersList.php');
     exit;
 }
 //Remove
@@ -35,7 +35,7 @@ if (isset($_POST['userId']) && isset($_POST['newBlocked'])) {
 foreach ($list as $User) {
 
     //Skip le user connecter
-    if($User->id() == $_SESSION["currentUserId"]){
+    if ($User->id() == $_SESSION["currentUserId"]) {
         continue;
     }
 
@@ -44,7 +44,7 @@ foreach ($list as $User) {
     $email = $User->Email();
     $avatar = $User->Avatar();
 
-    /******************************Admin***************************************/
+    //******************************Admin***************************************//
     $type = $User->Type();
     $newType = $type == 1 ? 0 : 1;
     $adminIcon = $type == 1 ? "fa fa-user-gear mx-2" : "fa fa-user mx-2";
@@ -55,7 +55,7 @@ foreach ($list as $User) {
             <button type="submit" class="cmdIconVisible blueCmd $adminIcon"></button>
         </form>
         HTML;
-    /******************************Blocked**************************************/
+    //******************************Blocked**************************************//
     $blocked = $User->Blocked();
     $newBlocked = $blocked == 1 ? 0 : 1;
     $styleBlocked = $blocked == 1 ? "redCmd" : "greenCmd";
@@ -66,16 +66,35 @@ foreach ($list as $User) {
         <button type="submit" class="cmdIconVisible $styleBlocked fa fa-circle-xmark mx-2"></button>
     </form>
     HTML;
-    /******************************Remove*************************************/
+    //******************************Remove*************************************//
+    // <form method="POST">
+    // <a href="confirmDeleteProfil.php?id=$id" class="cmdIconVisible goldenrodCmd fa fa-user-slash mx-2"></a>
+    // </form>
     $UserCmdRemove = <<<HTML
-    <form method="POST">
-          <a href="confirmDeleteProfil.php?id=$id" class="cmdIconVisible goldenrodCmd fa fa-user-slash mx-2"></a>
+    <form>
+    <button type="button" onclick="confirmDelete('$id', '$name')" class="cmdIconVisible goldenrodCmd fa fa-user-slash mx-2"></button>
     </form>
+
     HTML;
-    /*************************************************************************/
+    // *************************************************************************//
 
 
     $UserHTML = <<<HTML
+
+    <!-- POPUP + BACKDROP (BLUR EFFECT) -->
+    <div id="backdrop" class="backdrop"></div> 
+    <div id="confirmPopup" class="popup">
+        <div class="popupHeader">Confirmation de retrait</div>
+        <div class="popupMessage">Voulez-vous vraiment supprimer <span id='popupName'></span>?</div>
+        <div class="popupButtons">
+            <button onclick="deleteUser(document.getElementById('userId').value)" class="btn btn-danger">Oui</button>
+            <button onclick="closePopup()" class="btn btn-secondary">Non</button>
+        </div>
+        <input type="hidden" id="userId"> 
+    </div>
+
+
+
     <div class="UserRow" User_id="$id">
         <div class="UserContainer">
             <div class="UserLayout">
@@ -101,6 +120,23 @@ $viewScript = <<<HTML
     <script defer>
         $("#addPhotoCmd").hide();
     </script>
+
+<script>
+    function confirmDelete(id, name) {
+        document.getElementById('userId').value = id; //stocker le id
+        document.getElementById('confirmPopup').style.display = 'block'; //afficher le popup
+        document.getElementById('popupName').innerText = name; // afficher le nom
+        document.getElementById('backdrop').style.display = 'block'; //backdrop pour blurr le background
+    }
+    function closePopup() {
+        document.getElementById('confirmPopup').style.display = 'none'; //cacher le popup
+        document.getElementById('backdrop').style.display = 'none'; //cacher le popup
+    }
+
+    function deleteUser(id) {
+        window.location.href = "deleteProfil.php?id=" + id; //delete le user
+    }
+</script>
 HTML;
 
 
