@@ -10,7 +10,7 @@ if (!isset($viewContent))
     $viewContent = "";
 if (!isset($viewScript))
     $viewScript = "";
-    
+
 $stylesBundle = "";
 if (file_exists("views/stylesBundle.html"))
     $stylesBundle = file_get_contents("views/stylesBundle.html");
@@ -22,11 +22,11 @@ if (file_exists("views/scriptsBundle.html"))
 $localScript = "";
 
 if (isset($_SESSION["validUser"]) || isset($_SESSION["validAdmin"])) {
-    $timeout = (int)$_SESSION["timeout"];
+    $timeout = (int) $_SESSION["timeout"];
     $localScript = <<<HTML
     <script> $(document).ready(()=>{  timeout($timeout); }) </script>
     HTML;
-} 
+}
 
 echo <<<HTML
     <!DOCTYPE html>
