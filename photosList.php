@@ -30,8 +30,8 @@ switch ($sortOrder) {
         });
         break;
     case 'mine':
-        $list = array_filter($list, function($item) {
-            return $item->OwnerId() == (int)$_SESSION["currentUserId"];
+        $list = array_filter($list, function ($item) {
+            return $item->OwnerId() == (int) $_SESSION["currentUserId"];
         });
         break;
 }
@@ -64,7 +64,7 @@ foreach ($list as $photo) {
         <div class="photoLayout" photo_id="$id">
             <div class="photoTitleContainer" title="$description">
                 <div class="photoTitle ellipsis">$title</div> $editCmd</div>
-            <a href="photoDetails.php?id=$id" target="_blank">
+            <a href="photoDetails.php?id=$id">
                 <div class="photoImage" style="background-image:url('$image')">
                     <div class="UserAvatarSmall transparentBackground" style="background-image:url('$ownerAvatar')" title="$ownerName"></div>
                     $sharedIndicator
