@@ -59,11 +59,12 @@ foreach ($list as $User) {
     $blocked = $User->Blocked();
     $newBlocked = $blocked == 1 ? 0 : 1;
     $styleBlocked = $blocked == 1 ? "redCmd" : "greenCmd";
+    $iconBlocked = $blocked == 1 ? "fa fa-circle-xmark mx-2" : "fa fa-circle-check mx-2";
     $UserCmdBlocked = <<<HTML
     <form method="POST">
         <input type="hidden" name="userId" value="$id">
         <input type="hidden" name="newBlocked" value="$newBlocked">
-        <button type="submit" class="cmdIconVisible $styleBlocked fa fa-circle-xmark mx-2"></button>
+        <button type="submit" class="cmdIconVisible $styleBlocked $iconBlocked"></button>
     </form>
     HTML;
     //******************************Remove*************************************//
